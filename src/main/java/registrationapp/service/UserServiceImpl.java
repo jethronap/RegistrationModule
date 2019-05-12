@@ -1,4 +1,4 @@
-package registrationapp.service;
+    package registrationapp.service;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -32,14 +32,15 @@ public class UserServiceImpl implements UserService {
         return dao.findByEmail(email);
     }
 
-    public User save(CrmUser registration){
+    @Override
+    public void save(CrmUser registration){
         User user = new User();
         user.setFirstName(registration.getFirstName());
         user.setLastName(registration.getLastName());
         user.setEmail(registration.getEmail());
         user.setPassword(passwordEncoder.encode(registration.getPassword()));
         user.setRoles(Arrays.asList(new Role("ROLE_USER")));
-        return dao.save(user);
+         dao.save(user);
     }
 
     @Override
