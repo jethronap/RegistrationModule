@@ -1,14 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package registrationapp.dao;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import registrationapp.models.User;
 
 /**
  *
  * @author jnap
  */
-public class UserDao {
-    
+
+@Repository
+public interface UserDao extends JpaRepository<User, Long> {
+	User findByEmail(String email);
 }
