@@ -20,14 +20,13 @@ import registrationapp.models.User;
 @Transactional
 public class UserDaoImpl implements UserDao {
 
-    // need to inject the session factory
     @Autowired
     private SessionFactory sessionFactory;
 
     @Override
     public User findByEmail(String email) {
         Session currentSession = sessionFactory.getCurrentSession();
-        
+
         CriteriaBuilder builder = currentSession.getCriteriaBuilder();
         CriteriaQuery<User> criteria = builder.createQuery(User.class);
         Root<User> root = criteria.from(User.class);
@@ -39,30 +38,14 @@ public class UserDaoImpl implements UserDao {
             Hibernate.initialize(user.getRoles());
         }
         return user;
-        /*
-        // get the current hibernate session
-        Session currentSession = sessionFactory.getCurrentSession();
 
-        // now retrieve/read from database using username
-        Query<User> query = currentSession.createNativeQuery("select from user where u.email = :email", User.class);
-        query.setParameter("email", email);
-        User user = null;
-        try {
-            user = query.getSingleResult();
-        } catch (Exception e) {
-            user = null;
-        }
-
-        return user;
-*/
     }
 
     @Override
     public void save(User user) {
-        // get current hibernate session
+
         Session currentSession = sessionFactory.getCurrentSession();
 
-        // create the user
         currentSession.saveOrUpdate(user);
     }
 }
